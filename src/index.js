@@ -15,8 +15,7 @@ class CountdownTimer {
   }
 
   start() {
-    let startTime =
-      this.endTime - Date.now() > 0 ? this.endTime - Date.now() : 0;
+    let startTime = this.endTime - Date.now() > 0 ? this.endTime - Date.now() : 0;
     if (!startTime) {
       this.stop();
       return;
@@ -24,12 +23,9 @@ class CountdownTimer {
     this.timerRef.innerHTML = makeMarkup(this.getTime(startTime), false);
 
     this.intervalId = setInterval(() => {
-      const {
-        days: lastDays,
-        hours: lastHours,
-        mins: lastMins,
-        secs: lastSecs,
-      } = this.getTime(startTime);
+      const { days: lastDays, hours: lastHours, mins: lastMins, secs: lastSecs } = this.getTime(
+        startTime,
+      );
 
       const nowTime = this.endTime - Date.now();
       if (!nowTime) {
@@ -37,12 +33,9 @@ class CountdownTimer {
         return;
       }
 
-      const {
-        days: nowDays,
-        hours: nowHours,
-        mins: nowMins,
-        secs: nowSecs,
-      } = this.getTime(nowTime);
+      const { days: nowDays, hours: nowHours, mins: nowMins, secs: nowSecs } = this.getTime(
+        nowTime,
+      );
 
       startTime = nowTime;
 
@@ -63,9 +56,7 @@ class CountdownTimer {
 
   getTime(time) {
     const days = this._pad(Math.floor(time / (1000 * 60 * 60 * 24)));
-    const hours = this._pad(
-      Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-    );
+    const hours = this._pad(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
     const mins = this._pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
     const secs = this._pad(Math.floor((time % (1000 * 60)) / 1000));
     return { days, hours, mins, secs };
@@ -79,16 +70,12 @@ class CountdownTimer {
 const timerOne = new CountdownTimer({
   selector: 'timer-1',
   // targetDate: new Date('Nov 30, 2020'),
-  targetDate: Date.now() + 8.64e9 + 10000,
+  targetDate: Date.now() + 8.64e9 + 5000,
   // targetDate: new Date('Nov 30, 2018'),
 });
 
 timerOne.init();
 timerOne.start();
-
-// setTimeout(() => {
-//   timerOne.stop();
-// }, 15000);
 
 const timerTwo = new CountdownTimer({
   selector: 'timer-2',
